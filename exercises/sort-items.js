@@ -12,6 +12,7 @@
  */
 
 // Your code goes here...
+const allItems = document.getElementsByClassName('item');
 
 
 
@@ -23,7 +24,7 @@
  */
 
 // Your code goes here...
-
+const sortBtn = document.getElementsByClassName('sortBtn');
 
 
 /**
@@ -38,7 +39,32 @@
  */
 
 // Your code goes here...
+function sortData(direction) {
+  const container = document.getElementById('main');
+  const itemsArray = Array.from(allItems);
+  const sortAsc = (a, b) => {
+    if(a.id < b.id) return -1;
+    else if(a.id > b.id) return 1;
+    else return 0;
+  }
+  const sortDesc = (a, b) => {
+    if(a.id < b.id) return 1;
+    else if(a.id > b.id) return -1;
+    else return 0;
+  }
 
+  if(direction === 'asc') {
+    itemsArray.sort(sortAsc);
+    itemsArray.forEach((item) => {
+      container.append(item);
+    });
+  } else if(direction === 'desc') {
+    itemsArray.sort(sortDesc);
+    itemsArray.forEach((item) => {
+      container.append(item);
+    });
+  }
+}
 
 
 /**
@@ -50,5 +76,9 @@
  */
 
 // Your code goes here...
-
+for(let btn of sortBtn) {
+  btn.addEventListener('click', () => {
+    sortData(btn.getAttribute('data-sortdir'));
+  })
+}
 
