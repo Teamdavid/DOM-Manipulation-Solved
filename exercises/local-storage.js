@@ -38,3 +38,44 @@
  */
 
 // Your code goes here...
+
+const container = document.getElementsByClassName('cardsContainer')[0];
+
+function bkgdToRed () {
+  const localStorageIDRaw = localStorage.getItem('favorites');
+  const localStorageIDArray = JSON.parse(localStorageIDRaw);
+  for(let elem of localStorageIDArray) {
+    const item = document.getElementById(`${elem}`);
+    item.style.background = 'red';
+  }
+}
+
+bkgdToRed();
+
+const updateBkgd = (e) => {
+  const item = e.target;
+  const localStorageIDRaw = localStorage.getItem('favorites');
+  const localStorageIDArray = JSON.parse(localStorageIDRaw);
+
+  if(item.id === '') {return localStorage.setItem('favorites', JSON.stringify(localStorageIDArray))}
+
+  if(localStorageIDArray.length === 0) {
+    localStorageIDArray.push(item.id);
+    document.getElementById(item.id).style.background = 'red';
+    return localStorage.setItem('favorites', JSON.stringify(localStorageIDArray));
+  }
+  
+  for(let i = 0; i < localStorageIDArray.length; i++) {
+    if(item.id === localStorageIDArray[i]) {
+      localStorageIDArray.splice(i, 1);
+      item.style.background = 'none';
+      return localStorage.setItem('favorites', JSON.stringify(localStorageIDArray));
+    }
+  }
+
+  localStorageIDArray.push(item.id);
+  item.style.background = 'red';
+  return localStorage.setItem('favorites', JSON.stringify(localStorageIDArray));
+}
+
+container.addEventListener('click', updateBkgd);
