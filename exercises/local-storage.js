@@ -42,7 +42,7 @@
 const container = document.getElementsByClassName('cardsContainer')[0];
 
 function bkgdToRed () {
-  const localStorageIDRaw = localStorage.getItem('favorites');
+  const localStorageIDRaw = localStorage.getItem('favorites') || '[]';
   const localStorageIDArray = JSON.parse(localStorageIDRaw);
   for(let elem of localStorageIDArray) {
     const item = document.getElementById(`${elem}`);
@@ -54,7 +54,7 @@ bkgdToRed();
 
 const updateBkgd = (e) => {
   const item = e.target;
-  const localStorageIDRaw = localStorage.getItem('favorites');
+  const localStorageIDRaw = localStorage.getItem('favorites') || '[]';
   const localStorageIDArray = JSON.parse(localStorageIDRaw);
 
   if(item.id === '') {return localStorage.setItem('favorites', JSON.stringify(localStorageIDArray))}
